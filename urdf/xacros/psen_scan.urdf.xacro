@@ -4,7 +4,7 @@
     <xacro:property name="mass" value="1.53" /> <!-- src datasheet p 96 -->
     <xacro:property name="radius" value="0.051" /> <!-- src datasheet p 96 -->
     <xacro:property name="height" value="0.152" /> <!-- src datasheet p 96 -->
-    <xacro:property name="dist_scanning_plane_top" value="0.0377" /> <!-- src datasheet p 96 -->
+    <xacro:property name="dist_scanning_plane_top" value="0.02" /> <!-- src datasheet p 96 -->
     <xacro:property name="dist_scanning_axis_rear" value="0.0525" /> <!-- src datasheet p 96 -->
 
     <joint name="${prefix}_joint" type="fixed">
@@ -25,18 +25,18 @@
     <!-- Location of scanner body -->
     <link name="${prefix}_body_link">
       <visual>
-        <origin xyz="-0.016 0 -0.039" rpy="0 0 3.14" />
+        <origin xyz="${-radius} 0 0" rpy="1.57 0 0" />
         <geometry>
-          <mesh filename="package://psen_scan_v2/urdf/meshes/PSENscan.dae" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://psen_scan_v2/urdf/meshes/psenscan.glb" scale="1 1 1"/>
         </geometry>
         <material name="pilz_yellow" >
           <color rgba="1.0 0.722 0.196 1.0" />
         </material>
       </visual>
       <collision>
-        <origin xyz="-0.016 0 -0.039" rpy="0 0 3.14" />
+        <origin xyz="${-radius} 0 0" rpy="1.57 0 0" />
         <geometry>
-          <mesh filename="package://psen_scan_v2/urdf/meshes/PSENscan.dae" scale="0.001 0.001 0.001"/>
+          <mesh filename="package://psen_scan_v2/urdf/meshes/psenscan.glb" scale="1 1 1"/>
         </geometry>
       </collision>
       <inertial>
@@ -51,7 +51,7 @@
     <joint name="${prefix}_scan_joint" type="fixed">
       <parent link="${prefix}_body_link" />
       <child link="${prefix}" />
-      <origin rpy="${pi} 0 0" xyz="0 ${radius - dist_scanning_axis_rear} ${height / 2 - dist_scanning_plane_top}"/>
+      <origin rpy="3.14 0 0" xyz="0 ${radius - dist_scanning_axis_rear} ${height / 2 - dist_scanning_plane_top}"/>
     </joint>
 
     <!-- This is the location of the laser scan -->
